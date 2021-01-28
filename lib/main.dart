@@ -1,6 +1,28 @@
 import 'package:flutter/material.dart';
 
-void main() {
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+
+void main() async {
+  // Avoid errors caused by flutter upgrade.
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Open the database and store the reference.
+  final Future<Database> database = openDatabase(
+    join(await getDatabasesPath(), 'cat_database.db'),
+    // When the database is first created, create a table to store cats.
+    onCreate: (db, version) {
+      // Run the CREATE TABLE statement on the database.
+      return db.execute(
+        "CREATE TABLE cats(id INTEGER PRIMARY KEY, date_time DATETIME, note STRING"
+      );
+    },
+    // Set the version. This execute the onCreate function and provides
+    // path to perform database upgrades and downgrades.
+    version: 1,
+  );
+
+
   runApp(MyApp());
 }
 
