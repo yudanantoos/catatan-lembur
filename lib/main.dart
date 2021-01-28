@@ -30,8 +30,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Map<int, Color> colorCodes = {
+      50: Color.fromRGBO(0, 161, 79, .1),
+      100: Color.fromRGBO(0, 161, 79, .2),
+      200: Color.fromRGBO(0, 161, 79, .3),
+      300: Color.fromRGBO(0, 161, 79, .4),
+      400: Color.fromRGBO(0, 161, 79, .5),
+      500: Color.fromRGBO(0, 161, 79, .6),
+      600: Color.fromRGBO(0, 161, 79, .7),
+      700: Color.fromRGBO(0, 161, 79, .8),
+      800: Color.fromRGBO(0, 161, 79, .9),
+      900: Color.fromRGBO(0, 161, 79, 1),
+    };
+
+    MaterialColor color = new MaterialColor(0xff00a14f, colorCodes);
+
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Catatan Lembur',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -42,9 +57,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: color,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Lemburan'),
     );
   }
 }
@@ -68,19 +83,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -118,16 +120,12 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: (){},
+        tooltip: 'Tambah',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
