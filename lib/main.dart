@@ -15,7 +15,7 @@ void main() async {
     onCreate: (db, version) {
       // Run the CREATE TABLE statement on the database.
       return db.execute(
-        "CREATE TABLE cats(id INTEGER PRIMARY KEY, date_time DATETIME, note STRING"
+        "CREATE TABLE cats(id INTEGER PRIMARY KEY, act_hours STRING, total_hours STRING, date_time String, note STRING"
       );
     },
     // Set the version. This execute the onCreate function and provides
