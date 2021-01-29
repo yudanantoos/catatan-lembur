@@ -64,6 +64,24 @@ void main() async {
     );
   }
 
+  // A method that retrieves all the cats from the cats table
+  Future<List<Cat>> cats() async {
+    final Database db = await database;
+
+    // Query the table for all The Cats
+    final List<Map<String, dynamic>> maps = await db.query('cats');
+
+    // Convert the List<Map<String, dynamic>> into a List<Cat>
+    return List.generate(maps.length, (i) =>
+      Cat(
+        maps[i]['id'],
+        maps[i] ['act_hours'],
+        maps[i] ['total_hours'],
+        maps[i] ['date_time'],
+        maps[i] ['note'],
+      ),
+    );
+  }
 
   runApp(MyApp());
 }
