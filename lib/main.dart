@@ -1,70 +1,10 @@
+
 import 'package:catatan_lembur/database/cat.dart';
+import 'package:catatan_lembur/database/crud.dart';
 import 'package:flutter/material.dart';
 
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
-
 void main() async {
-  // Avoid errors caused by flutter upgrade.
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // Open the database and store the reference.
-  final Future<Database> database = openDatabase(
-    join(await getDatabasesPath(), 'cat_database.db'),
-    // When the database is first created, create a table to store cats.
-    onCreate: (db, version) {
-      // Run the CREATE TABLE statement on the database.
-      return db.execute(
-        "CREATE TABLE cats(id INTEGER PRIMARY KEY, date_time DATETIME, note STRING"
-      );
-    },
-    // Set the version. This execute the onCreate function and provides
-    // path to perform database upgrades and downgrades.
-    version: 1,
-  );
-
-  // Define a function that insert cats into the database.
-  Future<void> insertCat(Cat cat) async {
-    // Get the reference to the database
-    final Database db = await database;
-
-    // Insert the Cat into the correct table. You might also spesify the
-    // 'conflictAlgorithm' to use in case the same cat is inserted twice.
-    //
-    // In this case, replace any previous data.
-    await db.insert(
-        'cats',
-        cat.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
-  // Define a function that update cats into the database.
-  Future<void> updateCat(Cat cat) async {
-    final db = await database;
-
-    await db.update(
-      'cats',
-      cat.toMap(),
-      // Ensure that Cat has a matching note
-      where: "id = ?",
-      // PAss the Cat's note as a whereArg to prevent SQL injection
-      whereArgs: [cat.id],
-    );
-  }
-
-  // Define a function that delete cats into the database.
-  Future<void> deleteCat(int id) async {
-    final db = await database;
-
-    await db.delete(
-      'cats',
-      where: "id = ?",
-      whereArgs: [id],
-    );
-  }
-
-
+  Crud();
   runApp(MyApp());
 }
 
@@ -125,6 +65,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final Cat cat = Cat();
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -139,30 +81,14 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
+      body: Card(
+        child: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(cat.toString()),
+            );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
