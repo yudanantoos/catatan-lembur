@@ -1,25 +1,19 @@
 class Cat {
-  final int _id;
-  final double _actHours, _totalHours;
-  final String _dateTime, _note;
+  final int id;
+  final double actHours, totalHours;
+  final String dateTime, note;
 
-  Cat(this._id, this._actHours, this._totalHours, this._dateTime, this._note);
+  Cat({this.id, this.actHours, this.totalHours, this.dateTime, this.note});
 
   // Convert a Cat into a map. The keys must correspond to the names of the
   // columns in the database.
   Map<String, dynamic> toMap() {
     return {
-      'id' : _id,
-      'act_hours' : _actHours,
-      'total_hours' : _totalHours,
-      'date_time' : _dateTime,
-      'note' : _note,
+      'id' : id,
+      'act_hours' : actHours,
+      'total_hours' : totalHours,
+      'date_time' : dateTime,
+      'note' : note,
     };
   }
-
-  get id => _id;
-  get actHours => _actHours;
-  get totalHours => _totalHours;
-  get dateTime => _dateTime;
-  get note => _note;
 }
