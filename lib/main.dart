@@ -1,6 +1,5 @@
 
-import 'package:catatan_lembur/model/cat.dart';
-import 'package:catatan_lembur/model/crud.dart';
+import 'package:catatan_lembur/model/database_helper.dart';
 import 'package:flutter/material.dart';
 
 void main() {
