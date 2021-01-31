@@ -1,10 +1,9 @@
 
-import 'package:catatan_lembur/database/cat.dart';
-import 'package:catatan_lembur/database/crud.dart';
+import 'package:catatan_lembur/model/cat.dart';
+import 'package:catatan_lembur/model/crud.dart';
 import 'package:flutter/material.dart';
 
-void main() async {
-  Crud();
+void main() {
   runApp(MyApp());
 }
 
@@ -65,7 +64,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final Cat cat = Cat();
+
+  DatabaseHelper _dbHelper;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
           itemCount: 10,
           itemBuilder: (context, index) {
             return ListTile(
-              title: Text(cat.toString()),
+              title: Text(''),
             );
           },
         ),
