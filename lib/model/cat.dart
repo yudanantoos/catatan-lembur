@@ -12,7 +12,7 @@ class Cat {
 
   Cat({this.id, this.actHours, this.totalHours, this.dateTime, this.note});
 
-  Cat.fromMap(Map<String,dynamic> map) {
+  Cat.fromMap(Map<String, dynamic> map) {
     id = map[colId];
     actHours = map[colActHours];
     totalHours = map[colTotalHours];
@@ -23,13 +23,13 @@ class Cat {
   // Convert a Cat into a map. The keys must correspond to the names of the
   // columns in the database.
   Map<String, dynamic> toMap() {
-    var map = <String, dynamic> {
+    var map = <String, dynamic>{
       colActHours: actHours,
       colTotalHours: totalHours,
       colDateTime: dateTime,
       colNote: note
     };
-    if(id != null) {
+    if (id != null) {
       map[colId] = id;
     }
     return map;

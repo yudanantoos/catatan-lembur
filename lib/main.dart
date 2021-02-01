@@ -1,4 +1,3 @@
-
 import 'package:catatan_lembur/model/database_helper.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +62,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   DatabaseHelper _dbHelper;
 
   @override
@@ -91,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: () {},
         tooltip: 'Tambah',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
