@@ -1,7 +1,6 @@
-import 'dart:html';
-
 import 'package:catatan_lembur/model/cat.dart';
 import 'package:catatan_lembur/model/database_helper.dart';
+import 'package:catatan_lembur/res/route_me.dart';
 import 'package:flutter/material.dart';
 
 class ListMe extends StatefulWidget {
@@ -34,8 +33,9 @@ class _ListMeState extends State<ListMe> {
                 title: Text('Jam lembur'),
                 subtitle: Text('Upah Lembur'),
                 trailing: Icon(
-                  Icons.arrow_forward_ios
+                  Icons.arrow_forward_ios,
                 ),
+                onTap: _detailPage(),
               ),
             ],
           );
@@ -50,5 +50,9 @@ class _ListMeState extends State<ListMe> {
     setState(() {
       _cats = x;
     });
+  }
+
+  _detailPage() async{
+    await Navigator.pushNamed(context, RouteMe.detailPage);
   }
 }
