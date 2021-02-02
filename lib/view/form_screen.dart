@@ -18,12 +18,8 @@ class _FormScreenState extends State<FormScreen> {
           // YAKNI TextInput UNTUK NAME, EMAIL, PASSWORD DAN TOMBOL DAFTAR
           children: [
             dateField(),
-            Row(
-              children: [
-                startHourField(),
-                finishHourField(),
-              ],
-            ),
+            startHourField(),
+            finishHourField(),
             noteField(),
             Container(
               margin: EdgeInsets.only(top: 30.0),
@@ -38,6 +34,10 @@ class _FormScreenState extends State<FormScreen> {
   dateField() {
     final format = DateFormat('dd/MM/yyyy');
     return DateTimeField(
+        decoration: InputDecoration(
+          labelText: 'Tanggal',
+          hintText: 'Tanggal Lembur',
+        ),
         format: format,
         onShowPicker: (context, currentValue) {
           return showDatePicker(
@@ -51,6 +51,10 @@ class _FormScreenState extends State<FormScreen> {
   startHourField() {
     final format = DateFormat('HH:mm');
     return DateTimeField(
+        decoration: InputDecoration(
+          labelText: 'Start',
+          hintText: 'Dari Jam',
+        ),
         format: format,
         onShowPicker: (context, currentValue) async {
           final time = await showTimePicker(
@@ -64,6 +68,10 @@ class _FormScreenState extends State<FormScreen> {
   finishHourField() {
     final format = DateFormat('HH:mm');
     return DateTimeField(
+        decoration: InputDecoration(
+          labelText: 'Finish',
+          hintText: 'Sampai Jam',
+        ),
         format: format,
         onShowPicker: (context, currentValue) async {
           final time = await showTimePicker(

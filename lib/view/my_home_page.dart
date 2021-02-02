@@ -1,6 +1,6 @@
+import 'package:catatan_lembur/res/route_me.dart';
 import 'package:catatan_lembur/view/list_me.dart';
 import 'package:flutter/material.dart';
-import 'package:catatan_lembur/model/database_helper.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -21,7 +21,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -38,10 +37,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListMe(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: _form,
         tooltip: 'Tambah',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  _form() async {
+    await Navigator.pushNamed(context, RouteMe.form);
   }
 }

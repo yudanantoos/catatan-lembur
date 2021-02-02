@@ -21,12 +21,12 @@ class _ListMeState extends State<ListMe> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(10.0),
-      child: ListView.builder(
-        padding: const EdgeInsets.all(5),
-        itemBuilder: (context, index) {
-          return Column(
+    return ListView.builder(
+      padding: const EdgeInsets.all(5),
+      itemBuilder: (context, index) {
+        return Card(
+          margin: EdgeInsets.all(5),
+          child: Column(
             children: <Widget>[
               ListTile(
                 leading: Text('Tanggal'),
@@ -35,24 +35,24 @@ class _ListMeState extends State<ListMe> {
                 trailing: Icon(
                   Icons.arrow_forward_ios,
                 ),
-                onTap: _detailPage(),
+                onTap: _detailPage,
               ),
             ],
-          );
-        },
-        itemCount: _cats.length,
-      ),
+          ),
+        );
+      },
+      itemCount: _cats.length,
     );
   }
 
-  void _refreshCatList() async{
+  void _refreshCatList() async {
     List<Cat> x = await _databaseHelper.fetchCat();
     setState(() {
       _cats = x;
     });
   }
 
-  _detailPage() async{
+  _detailPage() async {
     await Navigator.pushNamed(context, RouteMe.detailPage);
   }
 }

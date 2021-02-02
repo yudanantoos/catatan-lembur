@@ -1,7 +1,7 @@
-
 import 'package:catatan_lembur/res/res.dart';
 import 'package:catatan_lembur/res/route_me.dart';
 import 'package:catatan_lembur/view/detail_page.dart';
+import 'package:catatan_lembur/view/form.dart';
 import 'package:catatan_lembur/view/my_home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     MaterialColor color = new MaterialColor(0xff00a14f, Res.colorCodes);
 
     return MaterialApp(
@@ -32,8 +31,11 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: RouteMe.home,
       routes: {
-        RouteMe.home : (context) => MyHomePage(),
-        RouteMe.detailPage : (context) => DetailPage(),
+        RouteMe.home: (context) => MyHomePage(
+              title: 'Lemburan',
+            ),
+        RouteMe.detailPage: (context) => DetailPage(),
+        RouteMe.form: (context) => App(),
       },
     );
   }
