@@ -30,8 +30,8 @@ class _ListMeState extends State<ListMe> {
             children: <Widget>[
               ListTile(
                 leading: Text(_cats[index].dateTime),
-                title: Text('Jam lembur'),
-                subtitle: Text('Upah Lembur'),
+                title: Text(_cats[index].actHours.toString()),
+                subtitle: Text(_cats[index].actHours.toString()),
                 trailing: Icon(
                   Icons.arrow_forward_ios,
                 ),
@@ -52,7 +52,7 @@ class _ListMeState extends State<ListMe> {
     });
   }
 
-  _detailPage() async {
-    await Navigator.pushNamed(context, RouteMe.detailPage);
+  _detailPage() {
+    Navigator.pushNamed(context, RouteMe.detailPage);
   }
 }
