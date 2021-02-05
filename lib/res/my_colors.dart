@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Res {
+class MyColors {
   static const Map<int, Color> colorCodes = {
     50: Color.fromRGBO(0, 161, 79, .1),
     100: Color.fromRGBO(0, 161, 79, .2),
@@ -13,4 +13,6 @@ class Res {
     800: Color.fromRGBO(0, 161, 79, .9),
     900: Color.fromRGBO(0, 161, 79, 1),
   };
+
+  static const button = 0xff00a14f;
 }
