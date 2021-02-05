@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    MaterialColor color = new MaterialColor(0xff00a14f, Res.colorCodes);
+    MaterialColor color = new MaterialColor(0xff00a14f, MyColors.colorCodes);
 
     return MaterialApp(
       title: 'Catatan Lembur',

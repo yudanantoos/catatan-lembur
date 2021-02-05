@@ -3,6 +3,7 @@ import 'package:catatan_lembur/model/cat.dart';
 import 'package:flutter/material.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
+import 'package:catatan_lembur/res/my_colors.dart';
 
 class FormScreen extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class FormScreen extends StatefulWidget {
 }
 
 class _FormScreenState extends State<FormScreen> {
-
+  List<Cat> _cats = [];
   Cat _cat = Cat(actHours: 2, totalHours: 3.5, dateTime: '04/10/1990', note: 'tes ae');
 
   @override
@@ -98,8 +99,8 @@ class _FormScreenState extends State<FormScreen> {
 
   registerButton() {
     return RaisedButton(
-      color: Color(0xff00a14f),
-      onPressed: () {MyControllers.insert(_cat);print(_cat.dateTime);},
+      color: Color(MyColors.button),
+      onPressed: () async {_cats = await MyControllers.showData();await MyControllers.insert(_cat);print(_cats[0].note);},
       child: Text('Tambah'),
     );
   }

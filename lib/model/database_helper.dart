@@ -34,9 +34,9 @@ class DatabaseHelper {
     await db.execute('CREATE TABLE ${Cat.tblCats}('
         '${Cat.colId} INTEGER PRIMARY KEY AUTOINCREMENT,'
         '${Cat.colActHours} DOUBLE NOT NULL,'
-        '${Cat.colTotalHours} DOUBLE NOT NULL)'
+        '${Cat.colTotalHours} DOUBLE NOT NULL,'
         '${Cat.colDateTime} TEXT NOT NULL,'
-        '${Cat.colNote} TEXT NOT NULL');
+        '${Cat.colNote} TEXT NOT NULL)');
   }
 
 }
