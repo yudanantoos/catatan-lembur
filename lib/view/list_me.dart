@@ -1,5 +1,5 @@
+import 'package:catatan_lembur/control/my_controllers.dart';
 import 'package:catatan_lembur/model/cat.dart';
-import 'package:catatan_lembur/model/database_helper.dart';
 import 'package:catatan_lembur/res/route_me.dart';
 import 'package:flutter/material.dart';
 
@@ -10,12 +10,12 @@ class ListMe extends StatefulWidget {
 
 class _ListMeState extends State<ListMe> {
   List<Cat> _cats = [];
-  DatabaseHelper _databaseHelper;
+
 
   @override
   void initState() {
     super.initState();
-    _databaseHelper = DatabaseHelper.instance;
+    MyControllers();
     _refreshCatList();
   }
 
@@ -29,7 +29,7 @@ class _ListMeState extends State<ListMe> {
           child: Column(
             children: <Widget>[
               ListTile(
-                leading: Text('Tanggal'),
+                leading: Text(_cats[index].dateTime),
                 title: Text('Jam lembur'),
                 subtitle: Text('Upah Lembur'),
                 trailing: Icon(
@@ -46,7 +46,7 @@ class _ListMeState extends State<ListMe> {
   }
 
   void _refreshCatList() async {
-    List<Cat> x = await _databaseHelper.fetchCat();
+    List<Cat> x = await MyControllers.showData();
     setState(() {
       _cats = x;
     });

@@ -1,4 +1,4 @@
-import 'package:catatan_lembur/res/res.dart';
+import 'package:catatan_lembur/res/my_colors.dart';
 import 'package:catatan_lembur/res/route_me.dart';
 import 'package:catatan_lembur/view/detail_page.dart';
 import 'package:catatan_lembur/view/form.dart';

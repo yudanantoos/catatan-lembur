@@ -39,30 +39,4 @@ class DatabaseHelper {
         '${Cat.colNote} TEXT NOT NULL');
   }
 
-  // Insert
-  Future<int> insertCat(Cat cat) async {
-    Database db = await database;
-    return await db.insert(Cat.tblCats, cat.toMap());
-  }
-
-  // Update
-  Future<int> updateCat(Cat cat) async {
-    Database db = await database;
-    return await db.update(Cat.tblCats, cat.toMap(),
-        where: '${Cat.colId}=?', whereArgs: [cat.id]);
-  }
-
-  // Delete
-  Future<int> deleteCat(int id) async {
-    Database db = await database;
-    return await db
-        .delete(Cat.tblCats, where: '${Cat.colId}=?', whereArgs: [id]);
-  }
-
-  // Retrieve all
-  Future<List<Cat>> fetchCat() async {
-    Database db = await database;
-    List<Map> cats = await db.query(Cat.tblCats);
-    return cats.length == 0 ? [] : cats.map((x) => Cat.fromMap(x)).toList();
-  }
 }

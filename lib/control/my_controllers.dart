@@ -1,5 +1,6 @@
 import 'package:catatan_lembur/model/cat.dart';
 import 'package:catatan_lembur/model/my_crud.dart';
+import 'package:flutter/cupertino.dart';
 
 class MyControllers {
 
@@ -9,7 +10,7 @@ class MyControllers {
     _myCrud = MyCrud();
   }
 
-  static insert(Cat cat) => _myCrud.insertCat(cat);
+  static Future<int> insert(Cat cat) async => await _myCrud.insertCat(cat);
 
   static update(Cat cat) => _myCrud.updateCat(cat);
 
