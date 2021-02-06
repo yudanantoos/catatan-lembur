@@ -28,6 +28,7 @@ dependencies:
   path_provider: any
   datetime_picker_formfield: any
   intl: any
+  numberpicker: any
 
 
 
