@@ -4,46 +4,54 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
 
-
 class FormScreen extends StatefulWidget {
   @override
   _FormScreenState createState() => _FormScreenState();
 }
 
 class _FormScreenState extends State<FormScreen> {
+  GlobalKey _formKey;
+  TextEditingController _ctrlDateTime, _ctrlOvertimeHours, _ctrlNote;
+  var _nominal = '2';
+  final format = DateFormat('dd/MM/yyyy');
 
-  final _formKey = GlobalKey<FormState>();
-  final _ctrlDateTime = TextEditingController();
-  final _ctrlStartHours = TextEditingController();
-  final _ctrlFinishHours = TextEditingController();
-  final _ctrlNote = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    _formKey = GlobalKey<FormState>();
+    _ctrlDateTime = TextEditingController(text: format.format(DateTime.now()));
+    _ctrlOvertimeHours = TextEditingController(text: _nominal);
+    _ctrlNote = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(20.0), // SET MARGIN DARI CONTAINER
-      child: Form(
-        key: _formKey,
-        child: Column(
-          // CHILDREN DARI COLUMN BERISI 4 BUAH OBJECT YANG AKAN DIRENDER,
-          // YAKNI TextInput UNTUK NAME, EMAIL, PASSWORD DAN TOMBOL DAFTAR
-          children: [
-            dateField(),
-            hourField(),
-            noteField(),
-            Container(
-              margin: EdgeInsets.only(top: 30.0, bottom: 10.0),
-              child: registerButton(),
-            ),
-          ],
+    return SingleChildScrollView(
+      child: Container(
+        margin: EdgeInsets.all(20.0), // SET MARGIN DARI CONTAINER
+        child: Form(
+          key: _formKey,
+          child: Column(
+            // CHILDREN DARI COLUMN BERISI 4 BUAH OBJECT YANG AKAN DIRENDER,
+            // YAKNI TextInput UNTUK NAME, EMAIL, PASSWORD DAN TOMBOL DAFTAR
+            children: [
+              dateField(),
+              hourField(),
+              noteField(),
+              Container(
+                margin: EdgeInsets.only(top: 30),
+                child: registerButton(),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   dateField() {
-    final format = DateFormat('dd/MM/yyyy');
-    return  DateTimeField(
+    return DateTimeField(
+        controller: _ctrlDateTime,
         decoration: InputDecoration(
           labelText: 'Tanggal',
           hintText: 'Tanggal Lembur',
@@ -59,38 +67,45 @@ class _FormScreenState extends State<FormScreen> {
   }
 
   hourField() {
-    double _nominal;
-
     return TextFormField(
+      keyboardType: TextInputType.number,
+      readOnly: true,
+      controller: _ctrlOvertimeHours,
       decoration: InputDecoration(
         labelText: 'Jam',
         hintText: 'Jam Lembur',
       ),
-      onTap: (){
-        showDialog<double>(context: context,
-            builder: (BuildContext context){
-              return NumberPickerDialog.decimal(minValue: 1, maxValue: 12, initialDoubleValue: 1.0);
-            }).then((value) => setState(() => _nominal = value));
-      },
-      onSaved: (String value){
-        Text(_nominal.toString());
+      onTap: () {
+        showDialog<int>(
+            context: context,
+            builder: (BuildContext context) {
+              return NumberPickerDialog.integer(
+                title: Text(('Jam Lembur')),
+                minValue: 1,
+                maxValue: 12,
+                initialIntegerValue: 1,
+              );
+            }).then((value) => setState(() => _nominal = value.toString()));
       },
     );
   }
 
   noteField() {
     return TextFormField(
+      keyboardType: TextInputType.multiline,
+      controller: _ctrlNote,
       decoration: InputDecoration(
         labelText: 'Catatan',
         hintText: 'Catatan Pekerjaan',
       ),
+      maxLines: null,
     );
   }
 
   registerButton() {
     return RaisedButton(
       color: Color(MyColors.button),
-      onPressed: ()  {},
+      onPressed: () {},
       child: Text('Tambah'),
     );
   }
