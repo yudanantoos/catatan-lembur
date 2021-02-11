@@ -12,15 +12,15 @@ class FormScreen extends StatefulWidget {
 class _FormScreenState extends State<FormScreen> {
   GlobalKey _formKey;
   TextEditingController _ctrlDateTime, _ctrlOvertimeHours, _ctrlNote;
-  var _nominal = '2';
   final format = DateFormat('dd/MM/yyyy');
+  double _nominalHours;
 
   @override
   void initState() {
     super.initState();
     _formKey = GlobalKey<FormState>();
     _ctrlDateTime = TextEditingController(text: format.format(DateTime.now()));
-    _ctrlOvertimeHours = TextEditingController(text: _nominal);
+    _ctrlOvertimeHours = TextEditingController();
     _ctrlNote = TextEditingController();
   }
 
@@ -35,12 +35,16 @@ class _FormScreenState extends State<FormScreen> {
             // CHILDREN DARI COLUMN BERISI 4 BUAH OBJECT YANG AKAN DIRENDER,
             // YAKNI TextInput UNTUK NAME, EMAIL, PASSWORD DAN TOMBOL DAFTAR
             children: [
-              dateField(),
-              hourField(),
-              noteField(),
-              Container(
-                margin: EdgeInsets.only(top: 30),
-                child: registerButton(),
+              Wrap(
+                runSpacing: 10,
+                children: [
+                  dateField(),
+                  hourField(),
+                  noteField(),
+                  Center(
+                    child: registerButton(),
+                  ),
+                ],
               ),
             ],
           ),
@@ -55,6 +59,8 @@ class _FormScreenState extends State<FormScreen> {
         decoration: InputDecoration(
           labelText: 'Tanggal',
           hintText: 'Tanggal Lembur',
+          border: OutlineInputBorder(),
+          icon: Icon(Icons.calendar_today),
         ),
         format: format,
         onShowPicker: (context, currentValue) {
@@ -74,6 +80,8 @@ class _FormScreenState extends State<FormScreen> {
       decoration: InputDecoration(
         labelText: 'Jam',
         hintText: 'Jam Lembur',
+        border: OutlineInputBorder(),
+        icon: Icon(Icons.access_time),
       ),
       onTap: () {
         showDialog<int>(
@@ -85,7 +93,13 @@ class _FormScreenState extends State<FormScreen> {
                 maxValue: 12,
                 initialIntegerValue: 1,
               );
-            }).then((value) => setState(() => _nominal = value.toString()));
+            }).then((value) {
+          if (value != null) {
+            setState(() {
+              _ctrlOvertimeHours.value = TextEditingValue(text: '$value Jam');
+            });
+          }
+        });
       },
     );
   }
@@ -97,6 +111,8 @@ class _FormScreenState extends State<FormScreen> {
       decoration: InputDecoration(
         labelText: 'Catatan',
         hintText: 'Catatan Pekerjaan',
+        border: OutlineInputBorder(),
+        icon: Icon(Icons.sticky_note_2_outlined),
       ),
       maxLines: null,
     );
