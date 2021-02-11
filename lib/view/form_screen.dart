@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:catatan_lembur/res/my_colors.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,7 @@ class FormScreen extends StatefulWidget {
 class _FormScreenState extends State<FormScreen> {
   GlobalKey _formKey;
   TextEditingController _ctrlDateTime, _ctrlOvertimeHours, _ctrlNote;
-  final format = DateFormat('dd/MM/yyyy');
+  final format = DateFormat('EEEE, d MMMM yyyy', 'id_ID');
 
   @override
   void initState() {
@@ -54,7 +56,7 @@ class _FormScreenState extends State<FormScreen> {
 
   dateField() {
     return DateTimeField(
-      validator: (val) => (val == null ? 'Tanggal belum diisi' : null),
+      validator: (val) => (val != val ?? 'Tanggal belum diisi'),
         controller: _ctrlDateTime,
         decoration: InputDecoration(
           labelText: 'Tanggal',
@@ -74,7 +76,7 @@ class _FormScreenState extends State<FormScreen> {
 
   hourField() {
     return TextFormField(
-      validator: (val) => (val == null ? 'Jam belum diisi' : null),
+      validator: (val) => (val.isEmpty ?? 'Jam belum diisi'),
       keyboardType: TextInputType.number,
       readOnly: true,
       controller: _ctrlOvertimeHours,
@@ -89,7 +91,11 @@ class _FormScreenState extends State<FormScreen> {
             context: context,
             builder: (BuildContext context) {
               return NumberPickerDialog.integer(
-                title: Text(('Jam Lembur')),
+                title: Text(('Pilih Jam Lembur'), style: TextStyle(fontSize: 12, letterSpacing: 1)),
+                cancelWidget: Text('Batal'),
+                decoration: BoxDecoration(
+
+                ),
                 minValue: 1,
                 maxValue: 12,
                 initialIntegerValue: 1,
@@ -107,7 +113,7 @@ class _FormScreenState extends State<FormScreen> {
 
   noteField() {
     return TextFormField(
-      validator: (val) => (val == null ? 'Catatan pekerjaan belum diisi' : null),
+      validator: (val) => (val.isEmpty ?? 'Catatan pekerjaan belum diisi'),
       keyboardType: TextInputType.multiline,
       controller: _ctrlNote,
       decoration: InputDecoration(
@@ -122,7 +128,7 @@ class _FormScreenState extends State<FormScreen> {
 
   registerButton() {
     return RaisedButton(
-      color: Color(MyColors.button),
+      color: Color(MyColors.primary),
       onPressed: () {},
       child: Text('Tambah'),
     );

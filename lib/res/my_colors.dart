@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MyColors {
+
   static const Map<int, Color> colorCodes = {
     50: Color.fromRGBO(0, 161, 79, .1),
     100: Color.fromRGBO(0, 161, 79, .2),
@@ -14,5 +15,5 @@ class MyColors {
     900: Color.fromRGBO(0, 161, 79, 1),
   };
 
-  static const button = 0xff00a14f;
+  static const primary = 0xff00a14f;
 }

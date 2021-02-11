@@ -29,6 +29,8 @@ dependencies:
   datetime_picker_formfield: any
   intl: any
   numberpicker: any
+  flutter_localizations:
+    sdk: flutter
 
 
 

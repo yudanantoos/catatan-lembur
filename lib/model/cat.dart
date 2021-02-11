@@ -1,3 +1,5 @@
+import 'package:catatan_lembur/control/my_logic.dart';
+
 class Cat {
   int _id;
   double _actHours, _totalHours, _overtimePay;

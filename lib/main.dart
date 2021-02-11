@@ -4,6 +4,7 @@ import 'package:catatan_lembur/view/detail_page.dart';
 import 'package:catatan_lembur/view/form.dart';
 import 'package:catatan_lembur/view/my_home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,6 +18,14 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Catatan Lembur',
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('id', 'ID')
+      ],
       theme: ThemeData(
         // This is the theme of your application.
         //
