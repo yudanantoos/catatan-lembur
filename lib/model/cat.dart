@@ -11,6 +11,8 @@ class Cat {
   static const colDateTime = 'date_time';
   static const colNote = 'note';
 
+  Cat.instance();
+
   Cat(this._id, this._actHours, this._totalHours, this._overtimePay, this._dateTime, this._note);
 
   Cat.fromMap(Map<String, dynamic> map) {
