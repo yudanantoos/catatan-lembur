@@ -13,7 +13,6 @@ class _FormScreenState extends State<FormScreen> {
   GlobalKey _formKey;
   TextEditingController _ctrlDateTime, _ctrlOvertimeHours, _ctrlNote;
   final format = DateFormat('dd/MM/yyyy');
-  double _nominalHours;
 
   @override
   void initState() {
@@ -55,6 +54,7 @@ class _FormScreenState extends State<FormScreen> {
 
   dateField() {
     return DateTimeField(
+      validator: (val) => (val == null ? 'Tanggal belum diisi' : null),
         controller: _ctrlDateTime,
         decoration: InputDecoration(
           labelText: 'Tanggal',
@@ -74,6 +74,7 @@ class _FormScreenState extends State<FormScreen> {
 
   hourField() {
     return TextFormField(
+      validator: (val) => (val == null ? 'Jam belum diisi' : null),
       keyboardType: TextInputType.number,
       readOnly: true,
       controller: _ctrlOvertimeHours,
@@ -106,6 +107,7 @@ class _FormScreenState extends State<FormScreen> {
 
   noteField() {
     return TextFormField(
+      validator: (val) => (val == null ? 'Catatan pekerjaan belum diisi' : null),
       keyboardType: TextInputType.multiline,
       controller: _ctrlNote,
       decoration: InputDecoration(
