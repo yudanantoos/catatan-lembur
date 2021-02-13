@@ -2,8 +2,7 @@ import 'package:catatan_lembur/control/my_logic.dart';
 
 class Cat {
   int _id;
-  double _actHours, _totalHours, _overtimePay;
-  String _dateTime, _note;
+  var _actHours, _totalHours, _overtimePay, _dateTime, _note;
 
   static const tblCats = 'cats';
   static const colId = '_id';
@@ -13,9 +12,7 @@ class Cat {
   static const colDateTime = 'date_time';
   static const colNote = 'note';
 
-  Cat.instance();
-
-  Cat(this._id, this._actHours, this._totalHours, this._overtimePay, this._dateTime, this._note);
+  Cat(MyLogic myLogic);
 
   Cat.fromMap(Map<String, dynamic> map) {
     _id = map[colId];
