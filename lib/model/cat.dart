@@ -1,8 +1,6 @@
-import 'package:catatan_lembur/control/my_logic.dart';
 
 class Cat {
-  int _id;
-  var _actHours, _totalHours, _overtimePay, _dateTime, _note;
+  var _id, _actHours, _totalHours, _overtimePay, _dateTime, _note;
 
   static const tblCats = 'cats';
   static const colId = '_id';
@@ -12,29 +10,29 @@ class Cat {
   static const colDateTime = 'date_time';
   static const colNote = 'note';
 
-  Cat(MyLogic myLogic);
+  Cat();
 
   Cat.fromMap(Map<String, dynamic> map) {
-    _id = map[colId];
-    _actHours = map[colActHours];
-    _totalHours = map[colTotalHours];
-    _overtimePay = map[colOvertimePay];
-    _dateTime = map[colDateTime];
-    _note = map[colNote];
+    this._id = map[colId];
+    this._actHours = map[colActHours];
+    this._totalHours = map[colTotalHours];
+    this._overtimePay = map[colOvertimePay];
+    this._dateTime = map[colDateTime];
+    this._note = map[colNote];
   }
 
   // Convert a Cat into a map. The keys must correspond to the names of the
   // columns in the database.
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      colActHours: _actHours,
-      colTotalHours: _totalHours,
-      colOvertimePay: _overtimePay,
-      colDateTime: _dateTime,
-      colNote: _note
+      colActHours: this._actHours,
+      colTotalHours: this._totalHours,
+      colOvertimePay: this._overtimePay,
+      colDateTime: this._dateTime,
+      colNote: this._note
     };
-    if (_id != null) {
-      map[colId] = _id;
+    if (this._id != null) {
+      map[colId] = this._id;
     }
     return map;
   }
@@ -42,36 +40,36 @@ class Cat {
   get note => _note;
 
   set note(value) {
-    _note = value;
+    this._note = value;
   }
 
   get dateTime => _dateTime;
 
   set dateTime(value) {
-    _dateTime = value;
+    this._dateTime = value;
   }
 
   get overtimePay => _overtimePay;
 
   set overtimePay(value) {
-    _overtimePay = value;
+    this._overtimePay = value;
   }
 
   get totalHours => _totalHours;
 
   set totalHours(value) {
-    _totalHours = value;
+    this._totalHours = value;
   }
 
   get actHours => _actHours;
 
   set actHours(value) {
-    _actHours = value;
+    this._actHours = value;
   }
 
   get id => _id;
 
   set id(value) {
-    _id = value;
+    this._id = value;
   }
 }
