@@ -1,4 +1,5 @@
 
+import 'package:catatan_lembur/model/cat.dart';
 import 'package:catatan_lembur/res/my_colors.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
@@ -11,14 +12,14 @@ class FormScreen extends StatefulWidget {
 }
 
 class _FormScreenState extends State<FormScreen> {
-  GlobalKey _formKey;
+  final _formKey = GlobalKey<FormState>();
+  Cat _cat = Cat();
   TextEditingController _ctrlDateTime, _ctrlOvertimeHours, _ctrlNote;
   final format = DateFormat('EEEE, d MMMM yyyy', 'id_ID');
 
   @override
   void initState() {
     super.initState();
-    _formKey = GlobalKey<FormState>();
     _ctrlDateTime = TextEditingController(text: format.format(DateTime.now()));
     _ctrlOvertimeHours = TextEditingController();
     _ctrlNote = TextEditingController();
@@ -70,7 +71,8 @@ class _FormScreenState extends State<FormScreen> {
               initialDate: currentValue ?? DateTime.now(),
               firstDate: DateTime(1900),
               lastDate: DateTime(2100));
-        });
+        },
+    onSaved: (val) => setState(() => _cat.dateTime(val)),);
   }
 
   hourField() {
@@ -107,6 +109,7 @@ class _FormScreenState extends State<FormScreen> {
           }
         });
       },
+      onSaved: (val) => setState(() => _cat.actHours(val)),
     );
   }
 
@@ -122,13 +125,20 @@ class _FormScreenState extends State<FormScreen> {
         icon: Icon(Icons.sticky_note_2_outlined),
       ),
       maxLines: null,
+      onSaved: (val) => setState(() => _cat.note(val)),
     );
   }
 
   registerButton() {
+    var form = _formKey.currentState;
     return RaisedButton(
       color: Color(MyColors.primary),
-      onPressed: () {},
+      onPressed: () async{
+        if(form.validate()){
+          form.save();
+
+        }
+      },
       child: Text('Tambah'),
     );
   }

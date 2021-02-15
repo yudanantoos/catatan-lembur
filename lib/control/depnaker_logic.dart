@@ -4,15 +4,16 @@ import 'package:catatan_lembur/model/cat.dart';
 class DepnakerLogic extends MyLogic{
 
   Cat _cat;
-  var _tanggal, _jamAsli, _hasilJamLembur, _hasilUpahLembur, _gapok, _note;
+  var _hasilJamLembur, _hasilUpahLembur, _gapok;
 
-  DepnakerLogic();
+  DepnakerLogic(this._cat);
 
   @override
   hariKerja(jam) {
     this._hasilJamLembur = jam < 2 ? jam * 1.5 : (jam - 1) * 2 + 1 * 1.5;
     this._hasilUpahLembur = this._hasilJamLembur * 1 / 173 * this._gapok;
-
+    _cat.totalHours(this._hasilJamLembur);
+    _cat.overtimePay(this._hasilUpahLembur);
   }
 
   @override
@@ -27,6 +28,8 @@ class DepnakerLogic extends MyLogic{
       this._hasilJamLembur = (jam - 9) * 4 + 8 * 2 + 1 * 3;
     }
     this._hasilUpahLembur = this._hasilJamLembur * 1 / 173 * this._gapok;
+    _cat.totalHours(this._hasilJamLembur);
+    _cat.overtimePay(this._hasilUpahLembur);
   }
 
 }
