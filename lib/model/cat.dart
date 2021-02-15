@@ -10,7 +10,14 @@ class Cat {
   static const colDateTime = 'date_time';
   static const colNote = 'note';
 
-  Cat();
+  Cat({id, actHours, totalHours, overtimePay, dateTime, note}){
+    this._id = id;
+    this._actHours = actHours;
+    this._totalHours = totalHours;
+    this._overtimePay = overtimePay;
+    this._dateTime = dateTime;
+    this._note = note;
+  }
 
   Cat.fromMap(Map<String, dynamic> map) {
     this._id = map[colId];

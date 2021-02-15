@@ -136,7 +136,9 @@ class _FormScreenState extends State<FormScreen> {
       onPressed: () async{
         if(form.validate()){
           form.save();
+            if(_ctrlDateTime.text.contains('Sabtu') || _ctrlDateTime.text.contains('Minggu')){
 
+            }
         }
       },
       child: Text('Tambah'),
