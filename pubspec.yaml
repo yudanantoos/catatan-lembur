@@ -31,6 +31,7 @@ dependencies:
   numberpicker: any
   flutter_localizations:
     sdk: flutter
+  shared_preferences: any
 
 
 
