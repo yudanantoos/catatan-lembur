@@ -7,12 +7,12 @@ class Preferences{
 
   Preferences();
 
-  void setIsiGapok(double value) async{
+  setIsiGapok(value) async{
     _sharedPreferences = await SharedPreferences.getInstance();
     _sharedPreferences.setDouble(_gapok, value);
   }
 
-  void setCekGapok(bool bool) async{
+  setCekGapok(bool bool) async{
     _sharedPreferences = await SharedPreferences.getInstance();
     _sharedPreferences.setBool(_cekGapok, bool);
   }

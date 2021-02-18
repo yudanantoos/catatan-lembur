@@ -2,7 +2,9 @@
 import 'package:catatan_lembur/control/depnaker_logic.dart';
 import 'package:catatan_lembur/control/my_controllers.dart';
 import 'package:catatan_lembur/model/cat.dart';
+import 'package:catatan_lembur/model/preferences.dart';
 import 'package:catatan_lembur/res/my_colors.dart';
+import 'package:catatan_lembur/view/form_gapok.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -139,13 +141,16 @@ class _FormScreenState extends State<FormScreen> {
       onPressed: () async{
         if(form.validate()){
           form.save();
-          _depnakerLogic = DepnakerLogic(_cat);
+          var _pref = Preferences();
+          if(_pref.getCekGapok()){
+            _depnakerLogic = DepnakerLogic(_cat);
             if(_ctrlDateTime.text.contains('Sabtu') || _ctrlDateTime.text.contains('Minggu')){
               _depnakerLogic.hariLibur(_ctrlOvertimeHours.text);
             } else {
               _depnakerLogic.hariKerja(_ctrlOvertimeHours.text);
             }
             await MyControllers.insert(_cat);
+          }
         }
       },
       child: Text('Tambah'),

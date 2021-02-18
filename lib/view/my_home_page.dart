@@ -34,6 +34,15 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(8),
+            child: GestureDetector(
+              child: Icon(Icons.more_vert),
+              onTap: (){},
+            ),
+          )
+        ],
       ),
       body: ListMe(),
       floatingActionButton: FloatingActionButton(
