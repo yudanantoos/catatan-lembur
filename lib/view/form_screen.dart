@@ -48,7 +48,7 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
                   hourField(),
                   noteField(),
                   Center(
-                    child: registerButton(context),
+                    child: registerButton(),
                   ),
                 ],
               ),
@@ -134,28 +134,19 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
     );
   }
 
-  registerButton(context) {
+  registerButton() {
     var form = _formKey.currentState;
     return RaisedButton(
       color: Color(MyColors.primary),
       onPressed: () async{
         if(form.validate()){
           form.save();
-          var _pref = Preferences();
-          if(_pref.getCekGapok()){
-            _depnakerLogic = DepnakerLogic(_cat);
-            if(_ctrlDateTime.text.contains('Sabtu') || _ctrlDateTime.text.contains('Minggu')){
-              _depnakerLogic.hariLibur(_ctrlOvertimeHours.text);
-              Navigator.pop(context);
-            } else {
-              _depnakerLogic.hariKerja(_ctrlOvertimeHours.text);
-              Navigator.pop(context);
-            }
-            await MyControllers.insert(_cat);
-          }else{
-            formGapok(context);
-          }
+          var _gapok = Preferences();
+          _gapok.setIsiGapok(4200000);
+          _gapok.setCekGapok(true);
+          MyControllers.insert(_cat);
         }
+        Navigator.pop(context);
       },
       child: Text('Tambah'),
     );
