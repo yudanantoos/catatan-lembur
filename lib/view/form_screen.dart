@@ -4,7 +4,7 @@ import 'package:catatan_lembur/control/my_controllers.dart';
 import 'package:catatan_lembur/model/cat.dart';
 import 'package:catatan_lembur/model/preferences.dart';
 import 'package:catatan_lembur/res/my_colors.dart';
-import 'package:catatan_lembur/view/form_gapok.dart';
+import 'package:catatan_lembur/view/gapok_dialog.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +15,7 @@ class FormScreen extends StatefulWidget {
   _FormScreenState createState() => _FormScreenState();
 }
 
-class _FormScreenState extends State<FormScreen> {
+class _FormScreenState extends State<FormScreen> with GapokDialog{
   final _formKey = GlobalKey<FormState>();
   final _cat = Cat();
   var _depnakerLogic;
@@ -48,7 +48,7 @@ class _FormScreenState extends State<FormScreen> {
                   hourField(),
                   noteField(),
                   Center(
-                    child: registerButton(),
+                    child: registerButton(context),
                   ),
                 ],
               ),
@@ -134,7 +134,7 @@ class _FormScreenState extends State<FormScreen> {
     );
   }
 
-  registerButton() {
+  registerButton(context) {
     var form = _formKey.currentState;
     return RaisedButton(
       color: Color(MyColors.primary),
@@ -146,10 +146,14 @@ class _FormScreenState extends State<FormScreen> {
             _depnakerLogic = DepnakerLogic(_cat);
             if(_ctrlDateTime.text.contains('Sabtu') || _ctrlDateTime.text.contains('Minggu')){
               _depnakerLogic.hariLibur(_ctrlOvertimeHours.text);
+              Navigator.pop(context);
             } else {
               _depnakerLogic.hariKerja(_ctrlOvertimeHours.text);
+              Navigator.pop(context);
             }
             await MyControllers.insert(_cat);
+          }else{
+            formGapok(context);
           }
         }
       },

@@ -14,7 +14,7 @@ class _FormGapokState extends State<FormGapok> with GapokDialog{
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(8),
-      child: _formGapok(),
+      child: formGapok(context),
     );
   }
 }

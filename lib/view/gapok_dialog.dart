@@ -1,13 +1,14 @@
+import 'package:catatan_lembur/model/preferences.dart';
+import 'package:catatan_lembur/res/my_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 
 class GapokDialog{
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _gajiPokok = TextEditingController();
+  final TextEditingController _gajiPokok = TextEditingController();
 
-  _formGapok(BuildContext context) async {
-    return await showDialog(
+  formGapok(BuildContext context) async {
+    await showDialog(
         context: context,
         builder: (BuildContext context) {
           return SimpleDialog(
@@ -38,11 +39,9 @@ class GapokDialog{
         });
   }
 
-  _saveGapok() {
+  _saveGapok() async{
     var _pref = Preferences();
-    setState(() async{
       await _pref.setIsiGapok(_gajiPokok.text);
       await _pref.setCekGapok(true);
-    });
   }
 }
