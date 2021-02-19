@@ -1,3 +1,4 @@
+import 'package:catatan_lembur/control/my_controllers.dart';
 import 'package:catatan_lembur/res/route_me.dart';
 import 'package:catatan_lembur/view/gapok_dialog.dart';
 import 'package:catatan_lembur/view/list_me.dart';
@@ -22,6 +23,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with GapokDialog{
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    MyControllers.showData();
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done

@@ -18,7 +18,6 @@ class FormScreen extends StatefulWidget {
 class _FormScreenState extends State<FormScreen> with GapokDialog{
   final _formKey = GlobalKey<FormState>();
   final _cat = Cat();
-  var _depnakerLogic;
   TextEditingController _ctrlDateTime, _ctrlOvertimeHours, _ctrlNote;
   final format = DateFormat('EEEE, d MMMM yyyy', 'id_ID');
 
@@ -61,7 +60,6 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
 
   dateField() {
     return DateTimeField(
-      validator: (val) => (val != val ?? 'Tanggal belum diisi'),
         controller: _ctrlDateTime,
         decoration: InputDecoration(
           labelText: 'Tanggal',
@@ -77,13 +75,12 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
               firstDate: DateTime(1900),
               lastDate: DateTime(2100));
         },
-    onSaved: (val) => setState(() => _cat.dateTime(val)),);
+      validator: (val) => (val.toString().length == 0 ? 'Tanggal belum diisi' : null),
+    onSaved: (val) => setState(() => _cat.dateTime(val.toString())),);
   }
 
   hourField() {
     return TextFormField(
-      validator: (val) => (val.isEmpty ?? 'Jam belum diisi'),
-      keyboardType: TextInputType.number,
       readOnly: true,
       controller: _ctrlOvertimeHours,
       decoration: InputDecoration(
@@ -109,18 +106,18 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
             }).then((value) {
           if (value != null) {
             setState(() {
-              _ctrlOvertimeHours.value = TextEditingValue(text: '$value Jam');
+              _ctrlOvertimeHours.value = TextEditingValue(text: '$value');
             });
           }
         });
       },
+      validator: (val) => (val.length == 0 ? 'Jam belum diisi' : null),
       onSaved: (val) => setState(() => _cat.actHours(val)),
     );
   }
 
   noteField() {
     return TextFormField(
-      validator: (val) => (val.isEmpty ?? 'Catatan pekerjaan belum diisi'),
       keyboardType: TextInputType.multiline,
       controller: _ctrlNote,
       decoration: InputDecoration(
@@ -130,23 +127,27 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
         icon: Icon(Icons.sticky_note_2_outlined),
       ),
       maxLines: null,
+      validator: (val) => (val.length == 0 ? 'Catatan pekerjaan belum diisi' : null),
       onSaved: (val) => setState(() => _cat.note(val)),
     );
   }
 
   registerButton() {
     var form = _formKey.currentState;
+    var _gapok = Preferences();
     return RaisedButton(
       color: Color(MyColors.primary),
       onPressed: () async{
-        if(form.validate()){
+        if(form.validate()) {
+          final _depnakerLogic = DepnakerLogic(_cat);
           form.save();
-          var _gapok = Preferences();
-          _gapok.setIsiGapok(4200000);
-          _gapok.setCekGapok(true);
-          MyControllers.insert(_cat);
+          _depnakerLogic.hariKerja(_ctrlOvertimeHours.text);
+          await _gapok.setIsiGapok(4200000);
+          await _gapok.setCekGapok(true);
+          await MyControllers.insert(_cat);
+          print(_cat.toString());
+          Navigator.pop(context);
         }
-        Navigator.pop(context);
       },
       child: Text('Tambah'),
     );
