@@ -11,9 +11,9 @@ class DepnakerLogic extends MyLogic{
   DepnakerLogic(this._cat);
 
   @override
-  hariKerja(jam) {
+  hariKerja(jam) async {
     this._hasilJamLembur = jam < 2 ? jam * 1.5 : (jam - 1) * 2 + 1 * 1.5;
-    this._hasilUpahLembur = this._hasilJamLembur * 1 / 173 * _gapok.getIsiGapok();
+    this._hasilUpahLembur = this._hasilJamLembur * 1 / 173 * await _gapok.getIsiGapok();
     _cat.totalHours(this._hasilJamLembur);
     _cat.overtimePay(this._hasilUpahLembur);
   }

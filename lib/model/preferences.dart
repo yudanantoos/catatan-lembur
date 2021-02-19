@@ -9,7 +9,7 @@ class Preferences{
 
   setIsiGapok(value) async{
     _sharedPreferences = await SharedPreferences.getInstance();
-    _sharedPreferences.setDouble(_gapok, value);
+    _sharedPreferences.setInt(_gapok, value);
   }
 
   setCekGapok(bool bool) async{
@@ -19,7 +19,7 @@ class Preferences{
 
   getIsiGapok() async{
     _sharedPreferences = await SharedPreferences.getInstance();
-    return _sharedPreferences.getString(_gapok);
+    return _sharedPreferences.getInt(_gapok);
   }
 
   getCekGapok() async{

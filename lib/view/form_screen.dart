@@ -76,7 +76,7 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
               lastDate: DateTime(2100));
         },
       validator: (val) => (val.toString().length == 0 ? 'Tanggal belum diisi' : null),
-    onSaved: (val) => setState(() => _cat.dateTime(val.toString())),);
+    onSaved: (val) => setState(() => _cat.dateTime = val),);
   }
 
   hourField() {
@@ -112,7 +112,7 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
         });
       },
       validator: (val) => (val.length == 0 ? 'Jam belum diisi' : null),
-      onSaved: (val) => setState(() => _cat.actHours(val)),
+      onSaved: (val) => setState(() => _cat.actHours = val),
     );
   }
 
@@ -128,7 +128,7 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
       ),
       maxLines: null,
       validator: (val) => (val.length == 0 ? 'Catatan pekerjaan belum diisi' : null),
-      onSaved: (val) => setState(() => _cat.note(val)),
+      onSaved: (val) => setState(() => _cat.note = val),
     );
   }
 
@@ -141,9 +141,9 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
         if(form.validate()) {
           final _depnakerLogic = DepnakerLogic(_cat);
           form.save();
-          _depnakerLogic.hariKerja(_ctrlOvertimeHours.text);
           await _gapok.setIsiGapok(4200000);
           await _gapok.setCekGapok(true);
+          _depnakerLogic.hariKerja(int.parse(_ctrlOvertimeHours.text));
           await MyControllers.insert(_cat);
           print(_cat.toString());
           Navigator.pop(context);
