@@ -5,8 +5,6 @@ class Preferences{
   final String _cekGapok = 'cekGapok';
   SharedPreferences _sharedPreferences;
 
-  Preferences();
-
   setIsiGapok(value) async{
     _sharedPreferences = await SharedPreferences.getInstance();
     _sharedPreferences.setInt(_gapok, value);
