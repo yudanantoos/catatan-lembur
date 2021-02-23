@@ -27,6 +27,7 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
     _ctrlDateTime = TextEditingController(text: format.format(DateTime.now()));
     _ctrlOvertimeHours = TextEditingController();
     _ctrlNote = TextEditingController();
+
   }
 
   @override
@@ -71,15 +72,16 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
         onShowPicker: (context, currentValue) {
           return showDatePicker(
               context: context,
-              initialDate: currentValue ?? DateTime.now(),
+              initialDate: currentValue ?? format.format(DateTime.now()),
               firstDate: DateTime(1900),
               lastDate: DateTime(2100));
         },
       validator: (val) => (val.toString().length == 0 ? 'Tanggal belum diisi' : null),
-    onSaved: (val) => setState(() => _cat.dateTime = val),);
+    onSaved: (val) => setState(() => _cat.dateTime = _ctrlDateTime.text),);
   }
 
   hourField() {
+    final _depnakerLogic = DepnakerLogic(_cat);
     return TextFormField(
       readOnly: true,
       controller: _ctrlOvertimeHours,
@@ -112,7 +114,10 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
         });
       },
       validator: (val) => (val.length == 0 ? 'Jam belum diisi' : null),
-      onSaved: (val) => setState(() => _cat.actHours = val),
+      onSaved: (val) => setState(() async{
+        await _depnakerLogic.hariKerja(int.parse(val));
+        return _cat.actHours = val.toString();
+      }),
     );
   }
 
@@ -139,14 +144,15 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
       color: Color(MyColors.primary),
       onPressed: () async{
         if(form.validate()) {
-          final _depnakerLogic = DepnakerLogic(_cat);
           form.save();
-          await _gapok.setIsiGapok(4200000);
-          await _gapok.setCekGapok(true);
-          _depnakerLogic.hariKerja(int.parse(_ctrlOvertimeHours.text));
-          await MyControllers.insert(_cat);
-          print(_cat.toString());
-          Navigator.pop(context);
+          setState(() async {
+            await _gapok.setIsiGapok(4200000);
+            await _gapok.setCekGapok(true);
+            await MyControllers.insert(_cat);
+            await MyControllers.showData();
+            print(_cat.toString());
+            Navigator.pop(context);
+          });
         }
       },
       child: Text('Tambah'),

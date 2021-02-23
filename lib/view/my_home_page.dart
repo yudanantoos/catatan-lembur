@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> with GapokDialog{
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
-        actions: [
+        /**actions: [
           Padding(
             padding: EdgeInsets.all(8),
             child: GestureDetector(
@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> with GapokDialog{
               onTap: (){},
             ),
           )
-        ],
+        ],**/
       ),
       body: ListMe(),
       floatingActionButton: FloatingActionButton(
