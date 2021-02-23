@@ -81,7 +81,6 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
   }
 
   hourField() {
-    final _depnakerLogic = DepnakerLogic(_cat);
     return TextFormField(
       readOnly: true,
       controller: _ctrlOvertimeHours,
@@ -97,7 +96,6 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
             builder: (BuildContext context) {
               return NumberPickerDialog.integer(
                 title: Text(('Pilih Jam Lembur'), style: TextStyle(fontSize: 12, letterSpacing: 1)),
-                cancelWidget: Text('Batal'),
                 decoration: BoxDecoration(
 
                 ),
@@ -114,10 +112,7 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
         });
       },
       validator: (val) => (val.length == 0 ? 'Jam belum diisi' : null),
-      onSaved: (val) => setState(() async{
-        await _depnakerLogic.hariKerja(int.parse(val));
-        return _cat.actHours = val.toString();
-      }),
+      onSaved: (val) => setState(() => _cat.actHours = val.toString()),
     );
   }
 
@@ -145,14 +140,13 @@ class _FormScreenState extends State<FormScreen> with GapokDialog{
       onPressed: () async{
         if(form.validate()) {
           form.save();
-          setState(() async {
+          final _depnakerLogic = DepnakerLogic(_cat);
             await _gapok.setIsiGapok(4200000);
             await _gapok.setCekGapok(true);
+            _depnakerLogic.hariKerja(int.parse(_ctrlOvertimeHours.text));
             await MyControllers.insert(_cat);
-            await MyControllers.showData();
             print(_cat.toString());
             Navigator.pop(context);
-          });
         }
       },
       child: Text('Tambah'),
