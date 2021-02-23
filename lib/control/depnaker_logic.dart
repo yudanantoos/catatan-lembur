@@ -4,7 +4,7 @@ import 'package:catatan_lembur/model/preferences.dart';
 
 class DepnakerLogic extends MyLogic{
 
-  Cat _cat;
+  Cat _cat = Cat();
   var _hasilJamLembur, _hasilUpahLembur;
   final _gapok = Preferences();
 

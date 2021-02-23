@@ -1,6 +1,7 @@
 import 'package:catatan_lembur/control/my_controllers.dart';
 import 'package:catatan_lembur/model/cat.dart';
 import 'package:catatan_lembur/res/route_me.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ListMe extends StatefulWidget {
@@ -29,9 +30,10 @@ class _ListMeState extends State<ListMe> {
           child: Column(
             children: <Widget>[
               ListTile(
-                leading: Text(_cats[index].dateTime),
+                isThreeLine: true,
+                leading: Text(_cats[index].dateTime.toString()),
                 title: Text(_cats[index].actHours.toString()),
-                subtitle: Text(_cats[index].actHours.toString()),
+                subtitle: Text(_cats[index].overtimePay.toString(), maxLines: 3,),
                 trailing: Icon(
                   Icons.arrow_forward_ios,
                 ),
